@@ -16,6 +16,9 @@ export function href(path: string): string {
 	return path.startsWith('/') ? base + path : path;
 }
 
+/** True when content/changelog has entries. The header links to it only then. */
+export const hasChangelog = Object.keys(import.meta.glob('/content/changelog/*.md')).length > 0;
+
 export const site: SiteConfig = {
 	...config,
 	origin: ((import.meta.env.VITE_ORIGIN as string | undefined) ?? config.origin).replace(/\/$/, '')

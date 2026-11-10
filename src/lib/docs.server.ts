@@ -44,7 +44,7 @@ const slugify = (s: string) =>
 		.trim()
 		.replace(/\s+/g, '-');
 
-function frontMatter(raw: string) {
+export function frontMatter(raw: string) {
 	const m = raw.match(/^---\n([\s\S]*?)\n---\n?/);
 	const meta: Record<string, string> = {};
 	if (!m) return { meta, body: raw };
@@ -63,7 +63,7 @@ function link(this: RendererThis, t: Tokens.Link) {
 	return `<a href="${href(t.href)}"${rel}${file}>${this.parser.parseInline(t.tokens)}</a>`;
 }
 
-function render(body: string) {
+export function render(body: string) {
 	const headings: Heading[] = [];
 	let first = true;
 	const marked = new Marked({
@@ -156,24 +156,24 @@ const plain = (md: string) =>
 		.replace(/\s+/g, ' ')
 		.trim();
 
+type Searchable = { path: string; title: string; description: string; body: string };
+
 /** One search entry per page section, so a result can land on the right heading. */
-export function searchIndex(): SearchEntry[] {
-	const out: SearchEntry[] = [];
-	for (const d of docs) {
-		const parts = d.body.split(/^## /m);
-		const group = d.group;
-		out.push({ path: d.path, title: d.title, page: d.title, group, text: `${d.description} ${plain(parts[0])}` });
-		for (const part of parts.slice(1)) {
-			const nl = part.indexOf('\n');
-			const heading = part.slice(0, nl).trim();
-			out.push({
-				path: `${d.path}#${slugify(heading)}`,
-				title: heading.replace(/`/g, ''),
-				page: d.title,
-				group,
-				text: plain(part.slice(nl))
-			});
-		}
+export function searchEntries(page: Searchable, group: string): SearchEntry[] {
+	const parts = page.body.split(/^## /m);
+	const out: SearchEntry[] = [
+		{ path: page.path, title: page.title, page: page.title, group, text: `${page.description} ${plain(parts[0])}` }
+	];
+	for (const part of parts.slice(1)) {
+		const nl = part.indexOf('\n');
+		const heading = part.slice(0, nl).trim();
+		out.push({
+			path: `${page.path}#${slugify(heading)}`,
+			title: heading.replace(/`/g, ''),
+			page: page.title,
+			group,
+			text: plain(part.slice(nl))
+		});
 	}
 	return out;
 }

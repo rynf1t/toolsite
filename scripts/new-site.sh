@@ -45,8 +45,9 @@ else
 fi
 
 # The template's own content stays behind.
-rm -rf "$dir/content/docs" "$dir/static/"*.png "$dir/scripts/new-site.sh" "$dir/scripts/starter"
+rm -rf "$dir/content" "$dir/static/"*.png "$dir/scripts/new-site.sh" "$dir/scripts/starter"
 mkdir -p "$dir/content/docs"
+git -C "$template" rev-parse --short HEAD >"$dir/.toolsite-version" 2>/dev/null || echo unknown >"$dir/.toolsite-version"
 
 # Facts we can work out from the tool's folder.
 owner=$(gh api user -q .login 2>/dev/null || echo you)
@@ -108,6 +109,7 @@ Published at $origin
 \`\`\`sh
 npm run dev                 # work on it
 scripts/deploy-pages.sh     # publish
+scripts/update-site.sh      # pull in template improvements
 \`\`\`
 
 Words live in \`site.config.ts\` and \`content/docs\`. See \`AGENTS.md\`.

@@ -6,6 +6,9 @@
 	import Search from '#lib/components/Search.svelte';
 	import type { LayoutProps } from './$types';
 
+	// A site's own styles, after the template's (see src/custom/README.md).
+	import.meta.glob('/src/custom/*.css', { eager: true });
+
 	let { children }: LayoutProps = $props();
 
 	// The site's identity: two hues from site.config.ts. app.css derives the rest.

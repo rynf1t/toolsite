@@ -4,7 +4,8 @@
 # The first run creates a public repo named after this folder and turns on
 # Pages. Every run pushes main, builds for origin and replaces the gh-pages
 # branch with the build. An origin outside github.io is treated as your own
-# domain: no base path, plus a CNAME file.
+# domain: no base path, a CNAME file, and a DNS record in Cloudflare if
+# scripts/cloudflare-token.sh has saved a token.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -56,6 +57,15 @@ if ! gh api "repos/$repo/pages" >/dev/null 2>&1; then
 fi
 if ((custom)); then
 	gh api -X PUT "repos/$repo/pages" -f "cname=$host" >/dev/null
+	token=${CLOUDFLARE_API_TOKEN:-$(security find-generic-password -s toolsite-cloudflare -w 2>/dev/null || true)}
+	if [[ -n $token ]]; then
+		CLOUDFLARE_API_TOKEN=$token node scripts/cloudflare-dns.mjs "$host" "${repo%%/*}.github.io"
+	else
+		echo "DNS: no Cloudflare token saved. Run scripts/cloudflare-token.sh once, or add a"
+		echo "     DNS-only CNAME from $host to ${repo%%/*}.github.io yourself."
+	fi
+	# GitHub issues the certificate a few minutes after DNS resolves. Until then this fails quietly.
+	gh api -X PUT "repos/$repo/pages" -F https_enforced=true >/dev/null 2>&1 || echo "HTTPS: GitHub is still issuing the certificate. Deploy again later to turn on HTTPS only."
 fi
 
 echo "Published. GitHub usually has it live within a minute, at $origin"

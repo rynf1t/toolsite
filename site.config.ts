@@ -76,11 +76,11 @@ scripts/deploy-pages.sh`,
 		},
 		{
 			q: 'Can I use my own domain?',
-			a: 'Yes. Add a CNAME record and set `origin`. See [Deploying](/docs/deploying#your-own-domain).'
+			a: 'Yes. Set `origin` and deploy. If your DNS is on Cloudflare, the deploy adds the record for you. See [Deploying](/docs/deploying#your-own-domain).'
 		},
 		{
 			q: 'What if a tool needs a custom demo?',
-			a: 'The landing page is one Svelte file. Swap the hero for your own component in that tool’s site and keep the rest.'
+			a: 'Put it in `src/custom/Hero.svelte` and it replaces the hero sample. Template updates leave it alone. See [Custom hero and styles](/docs/custom-code).'
 		},
 		{
 			q: 'Can my agent read these docs?',

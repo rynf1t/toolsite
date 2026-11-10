@@ -22,7 +22,7 @@ group: Guide
 | `hero` | The headline, the lead paragraph, and a screenshot or code sample. |
 | `sections` | The landing page bands. See [Sections](#sections). |
 | `questions` | The questions at the bottom of the landing page. |
-| `nav` | Optional. Extra header links after Docs. |
+| `nav` | Optional. Extra header links after Docs, such as a second tool's docs group. |
 
 Text fields take inline Markdown: `code`, bold, and links. A link that starts with `/` is a path on this site.
 
@@ -62,4 +62,4 @@ Leave all three out and the copy stands alone. Images go in `static/`.
 
 Show the tool working. Use `image` for a screenshot in `static/`, or `code` for a short terminal session. In a terminal sample the first word of each command is coloured as the program, and lines starting with `#` are comments.
 
-If a tool needs a live demo, edit `src/routes/+page.svelte` in that tool's site and put your own component where the hero sample goes. Everything else keeps working.
+For a live demo, add `src/custom/Hero.svelte`. See [Custom hero and styles](/docs/custom-code).

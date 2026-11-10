@@ -77,38 +77,38 @@
 	color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--ink: oklch(0.93 0.006 var(--tint-h));
-		--paper: oklch(0.175 0.009 var(--tint-h));
-		--surface: oklch(0.215 0.011 var(--tint-h));
-		--soft: color-mix(in oklab, var(--ink) 66%, transparent);
-		--muted: oklch(0.58 0.012 var(--tint-h));
-		--rule: color-mix(in oklab, var(--ink) 13%, transparent);
-		--wash: color-mix(in oklab, var(--ink) 7%, transparent);
-		/* lit from above: the top edge is the brighter one */
-		--edge-top: color-mix(in oklab, var(--ink) 16%, transparent);
-		--edge-bottom: color-mix(in oklab, var(--ink) 7%, transparent);
-		--accent-ink: oklch(0.8 0.13 var(--accent-h));
-		--focus: oklch(0.72 0.15 var(--focus-h));
-		--selection: color-mix(in oklab, var(--accent) 38%, var(--paper));
-		--hover: color-mix(in oklab, var(--accent) 10%, var(--surface));
-		--shadow-surface: 0 1px 1px #0003, 0 2px 2px -1px #0003, 0 4px 6px -3px #0000003d;
-		--shadow-raised: 0 0 0 0.5px oklch(0.93 0.006 var(--tint-h) / 9%), inset 0 1px 0 oklch(0.93 0.006 var(--tint-h) / 5%),
-			0 2px 2px -1px #0000004d, 0 4px 4px -2px #0000004d, 0 8px 8px -4px #00000040,
-			0 16px 16px -8px #00000040, 0 32px 48px -16px #00000059;
-		--shadow-dialog: 0 0 0 1px oklch(0.93 0.006 var(--tint-h) / 10%), inset 0 1px 0 oklch(0.93 0.006 var(--tint-h) / 5%),
-			0 2px 2px -1px #0000004d, 0 4px 4px -2px #0000004d, 0 8px 8px -4px #0000004d,
-			0 16px 16px -8px #0000004d, 0 32px 32px -16px #0000004d, 0 48px 64px -24px #0006;
-		--backdrop: #00000073;
-		--sh-fn: oklch(0.8 0.13 var(--accent-h));
-		--sh-str: oklch(0.78 0.11 160);
-		--sh-key: oklch(0.75 0.14 300);
-		--sh-prop: oklch(0.75 0.12 262);
-		--sh-num: oklch(0.75 0.13 20);
-		--sh-com: oklch(0.6 0.015 var(--tint-h));
-		color-scheme: dark;
-	}
+/* Dark is its own palette. app.html sets data-mode from the reader's choice,
+ * or from the system when they haven't chosen. */
+:root[data-mode='dark'] {
+	--ink: oklch(0.93 0.006 var(--tint-h));
+	--paper: oklch(0.175 0.009 var(--tint-h));
+	--surface: oklch(0.215 0.011 var(--tint-h));
+	--soft: color-mix(in oklab, var(--ink) 66%, transparent);
+	--muted: oklch(0.58 0.012 var(--tint-h));
+	--rule: color-mix(in oklab, var(--ink) 13%, transparent);
+	--wash: color-mix(in oklab, var(--ink) 7%, transparent);
+	/* lit from above: the top edge is the brighter one */
+	--edge-top: color-mix(in oklab, var(--ink) 16%, transparent);
+	--edge-bottom: color-mix(in oklab, var(--ink) 7%, transparent);
+	--accent-ink: oklch(0.8 0.13 var(--accent-h));
+	--focus: oklch(0.72 0.15 var(--focus-h));
+	--selection: color-mix(in oklab, var(--accent) 38%, var(--paper));
+	--hover: color-mix(in oklab, var(--accent) 10%, var(--surface));
+	--shadow-surface: 0 1px 1px #0003, 0 2px 2px -1px #0003, 0 4px 6px -3px #0000003d;
+	--shadow-raised: 0 0 0 0.5px oklch(0.93 0.006 var(--tint-h) / 9%), inset 0 1px 0 oklch(0.93 0.006 var(--tint-h) / 5%),
+		0 2px 2px -1px #0000004d, 0 4px 4px -2px #0000004d, 0 8px 8px -4px #00000040,
+		0 16px 16px -8px #00000040, 0 32px 48px -16px #00000059;
+	--shadow-dialog: 0 0 0 1px oklch(0.93 0.006 var(--tint-h) / 10%), inset 0 1px 0 oklch(0.93 0.006 var(--tint-h) / 5%),
+		0 2px 2px -1px #0000004d, 0 4px 4px -2px #0000004d, 0 8px 8px -4px #0000004d,
+		0 16px 16px -8px #0000004d, 0 32px 32px -16px #0000004d, 0 48px 64px -24px #0006;
+	--backdrop: #00000073;
+	--sh-fn: oklch(0.8 0.13 var(--accent-h));
+	--sh-str: oklch(0.78 0.11 160);
+	--sh-key: oklch(0.75 0.14 300);
+	--sh-prop: oklch(0.75 0.12 262);
+	--sh-num: oklch(0.75 0.13 20);
+	--sh-com: oklch(0.6 0.015 var(--tint-h));
+	color-scheme: dark;
 }
 
 @media (forced-colors: active) {

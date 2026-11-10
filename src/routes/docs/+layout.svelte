@@ -3,6 +3,7 @@
 	import { afterNavigate } from '$app/navigation';
 	import Wordmark from '#lib/components/Wordmark.svelte';
 	import SearchTrigger from '#lib/components/SearchTrigger.svelte';
+	import ModeToggle from '#lib/components/ModeToggle.svelte';
 	import { copyButtons } from '#lib/copy.js';
 	import { href } from '#lib/site.js';
 	import type { LayoutProps } from './$types';
@@ -41,7 +42,7 @@
 <div class="docs">
 	<aside class="sidebar" aria-label="Docs">
 		<div class="top">
-			<Wordmark />
+			<div class="brand"><Wordmark /><ModeToggle /></div>
 			<SearchTrigger wide />
 		</div>
 		<nav class="scroll">
@@ -51,6 +52,7 @@
 
 	<header class="mobile">
 		<Wordmark />
+		<ModeToggle />
 		<button
 			type="button"
 			class="toggle"
@@ -98,6 +100,13 @@
 		display: grid;
 		gap: 1.5rem;
 		padding-bottom: 0.75rem;
+	}
+
+	.brand {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-right: -0.35rem;
 	}
 
 	.scroll {
@@ -242,11 +251,15 @@
 			z-index: 50;
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			gap: 0.25rem;
 			height: 3.5rem;
 			padding: 0 1.25rem;
 			background: color-mix(in oklab, var(--paper) 88%, transparent);
 			backdrop-filter: blur(12px);
+		}
+
+		.mobile :global(.wordmark) {
+			margin-right: auto;
 		}
 
 		.toggle {

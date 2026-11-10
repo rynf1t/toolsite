@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { href, site } from '#lib/site.js';
+	import { hasChangelog, href, site } from '#lib/site.js';
 	import Wordmark from './Wordmark.svelte';
 	import SearchTrigger from './SearchTrigger.svelte';
+	import ModeToggle from './ModeToggle.svelte';
 
-	const links = [{ href: '/docs', label: 'Docs', match: '/docs' }, ...(site.nav ?? []).map((l) => ({ ...l, match: l.href }))];
+	const links = [
+		{ href: '/docs', label: 'Docs', match: '/docs' },
+		...(site.nav ?? []).map((l) => ({ ...l, match: l.href })),
+		...(hasChangelog ? [{ href: '/changelog', label: 'Changelog', match: '/changelog' }] : [])
+	];
 </script>
 
 <header class="header">
@@ -15,6 +20,7 @@
 		{/each}
 		<a href={site.repo} class="gh">GitHub</a>
 		<SearchTrigger />
+		<ModeToggle />
 	</nav>
 </header>
 

@@ -10,9 +10,12 @@ here is writing, not code.
 |---|---|
 | `site.config.ts` | Every fact and every word on the landing page: name, one-line description, install command, requirement, colours, hero, sections, questions. The landing page's Markdown copy and `llms.txt` are generated from it. |
 | `content/docs/NN-slug.md` | One docs page each. The number sets the order. Front matter: `title`, `description`, `group`. A bold first paragraph becomes the lead. |
+| `content/changelog/YYYY-MM-DD-slug.md` | Release notes, newest first. Front matter: `title`, `description`, optional `version`. A bold first paragraph is the lead. |
 | `static/` | Screenshots and other files served as they are. |
-| `src/` | The template's code. Change it only when the config can't express what the tool needs, such as a custom hero demo in `src/routes/+page.svelte`. |
-| `scripts/deploy-pages.sh` | Publishes to GitHub Pages. Ask Ryan before running it. |
+| `src/custom/` | The site's own code: `Hero.svelte` replaces the hero sample, `*.css` loads on every page. Template updates never touch it. |
+| `src/` (the rest) | The template's code. `scripts/update-site.sh` replaces it, so don't edit it here. Fix the template at `~/Projects/toolsite` instead. |
+| `scripts/deploy-pages.sh` | Publishes to GitHub Pages, and adds the Cloudflare DNS record for a custom domain. Ask Ryan before running it. |
+| `scripts/update-site.sh` | Pulls in template improvements. Doesn't commit. |
 
 ## Filling in a new site
 

@@ -24,9 +24,13 @@ The docs at `content/docs` (or the site above) cover every step.
   buttons and ⌘K search.
 - A Markdown copy of every page at the same address plus `.md`, and
   `llms.txt`, `llms-full.txt` and `search.json`.
-- Light and dark palettes from two hues, a generated favicon, and a 404 page
-  with search.
-- A one-command deploy to GitHub Pages, with your own domain if you set one.
+- A changelog from dated Markdown files.
+- Light and dark palettes from two hues with a switch, a generated favicon,
+  and a 404 page with search.
+- A custom hero or styles in `src/custom`, safe from template updates.
+- A one-command deploy to GitHub Pages. With your own domain on Cloudflare,
+  it adds the DNS record too.
+- `scripts/update-site.sh` to pull template improvements into a site.
 
 ## Working on the template
 
@@ -37,5 +41,6 @@ npm run check
 npm run build
 ```
 
-Template code lives in `src`. Sites are copies, so changes here don't reach
-existing sites. Copy `src` across by hand when one needs an update.
+Template code lives in `src`. Sites pick up changes when they run
+`scripts/update-site.sh`, which copies `src` (apart from `src/custom`), the
+scripts and the build config.

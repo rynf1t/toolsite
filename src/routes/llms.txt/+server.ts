@@ -1,3 +1,4 @@
+import { changelog } from '#lib/changelog.server.js';
 import { docs } from '#lib/docs.server.js';
 import { site } from '#lib/site.js';
 
@@ -20,6 +21,10 @@ export function GET() {
 			lines.push(`## ${(group = d.group)}`, '');
 		}
 		lines.push(`- [${d.title}](${site.origin}${d.path}.md): ${d.description}`);
+	}
+	if (changelog.length) {
+		lines.push('', '## Changelog', '', `- [All entries](${site.origin}/changelog.md): newest first`);
+		for (const e of changelog.slice(0, 10)) lines.push(`- [${e.title}](${site.origin}${e.path}.md): ${e.date}`);
 	}
 	lines.push('');
 	return new Response(lines.join('\n'), { headers: { 'content-type': 'text/plain; charset=utf-8' } });

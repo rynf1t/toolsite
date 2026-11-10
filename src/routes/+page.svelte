@@ -4,7 +4,13 @@
 	import SiteFooter from '#lib/components/SiteFooter.svelte';
 	import CopyLine from '#lib/components/CopyLine.svelte';
 	import CodeSample from '#lib/components/CodeSample.svelte';
+	import type { Component } from 'svelte';
 	import type { PageProps } from './$types';
+
+	// A site's own hero demo, if it has one (see src/custom/README.md).
+	const CustomHero = Object.values(
+		import.meta.glob<Component>('/src/custom/Hero.svelte', { eager: true, import: 'default' })
+	)[0];
 
 	// All the words live in site.config.ts. This file is layout only, so a
 	// tool that needs a custom demo can swap the hero and keep the rest.
@@ -37,9 +43,11 @@
 				<p class="reveal" style:--i="4"><a class="more" href={href(hero.link.href)}>{hero.link.label}</a></p>
 			{/if}
 		</div>
-		{#if hero.image || hero.code}
+		{#if CustomHero || hero.image || hero.code}
 			<div class="demo reveal" style:--i="2">
-				{#if hero.image}
+				{#if CustomHero}
+					<CustomHero />
+				{:else if hero.image}
 					<img class="shot" src={href(hero.image.src)} alt={hero.image.alt} />
 				{:else if hero.code}
 					<CodeSample code={hero.code} terminal />
