@@ -56,7 +56,8 @@ if ! gh api "repos/$repo/pages" >/dev/null 2>&1; then
 	gh api -X POST "repos/$repo/pages" -f "source[branch]=gh-pages" -f "source[path]=/" >/dev/null
 fi
 if ((custom)); then
-	gh api -X PUT "repos/$repo/pages" -f "cname=$host" >/dev/null
+	# DNS first. GitHub checks the domain once, when it's set, and only starts
+	# the certificate if the record already resolves.
 	token=${CLOUDFLARE_API_TOKEN:-$(security find-generic-password -s toolsite-cloudflare -w 2>/dev/null || true)}
 	if [[ -n $token ]]; then
 		CLOUDFLARE_API_TOKEN=$token node scripts/cloudflare-dns.mjs "$host" "${repo%%/*}.github.io"
@@ -64,8 +65,18 @@ if ((custom)); then
 		echo "DNS: no Cloudflare token saved. Run scripts/cloudflare-token.sh once, or add a"
 		echo "     DNS-only CNAME from $host to ${repo%%/*}.github.io yourself."
 	fi
-	# GitHub issues the certificate a few minutes after DNS resolves. Until then this fails quietly.
-	gh api -X PUT "repos/$repo/pages" -F https_enforced=true >/dev/null 2>&1 || echo "HTTPS: GitHub is still issuing the certificate. Deploy again later to turn on HTTPS only."
+	current=$(gh api "repos/$repo/pages" --jq '.cname // ""')
+	cert=$(gh api "repos/$repo/pages" --jq '.https_certificate.state // ""')
+	if [[ $current == "$host" && -z $cert ]]; then
+		# Set before the DNS existed, so GitHub never started a certificate. Setting it again does.
+		gh api -X PUT "repos/$repo/pages" -F cname=null >/dev/null
+		sleep 3
+	fi
+	if [[ $current != "$host" || -z $cert ]]; then
+		gh api -X PUT "repos/$repo/pages" -f "cname=$host" >/dev/null
+	fi
+	# The certificate usually takes a minute or two. Until then this fails quietly.
+	gh api -X PUT "repos/$repo/pages" -F https_enforced=true >/dev/null 2>&1 || echo "HTTPS: GitHub is still issuing the certificate. Deploy again in a few minutes to turn on HTTPS only."
 fi
 
 echo "Published. GitHub usually has it live within a minute, at $origin"
