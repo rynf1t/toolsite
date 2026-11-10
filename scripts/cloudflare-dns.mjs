@@ -1,14 +1,17 @@
 // Point HOST at TARGET with a DNS-only CNAME in Cloudflare, so GitHub Pages
 // can serve it and issue the certificate.
 //
-//   CLOUDFLARE_API_TOKEN=... node scripts/cloudflare-dns.mjs radar.itsryan.me rynf1t.github.io
+//   CLOUDFLARE_API_TOKEN=... node scripts/cloudflare-dns.mjs mytool.example.com you.github.io
+//   CLOUDFLARE_API_TOKEN=... node scripts/cloudflare-dns.mjs --delete mytool.example.com you.github.io
 //
-// Exits 0 when the record is in place, 3 when an existing record points
-// somewhere else (it never overwrites one), 1 on any other failure.
-const [host, target] = process.argv.slice(2);
+// Exits 0 when the record is in place (or gone, with --delete), 3 when an
+// existing record points somewhere else (it never touches one), 1 on any
+// other failure.
+const del = process.argv[2] === '--delete';
+const [host, target] = process.argv.slice(del ? 3 : 2);
 const token = process.env.CLOUDFLARE_API_TOKEN;
 if (!host || !target || !token) {
-	console.error('usage: CLOUDFLARE_API_TOKEN=... node scripts/cloudflare-dns.mjs HOST TARGET');
+	console.error('usage: CLOUDFLARE_API_TOKEN=... node scripts/cloudflare-dns.mjs [--delete] HOST TARGET');
 	process.exit(2);
 }
 
@@ -36,7 +39,17 @@ try {
 
 	const records = await cf(`/zones/${zone.id}/dns_records?name=${host}`);
 	const same = records.find((r) => r.type === 'CNAME' && r.content === target);
-	if (same && !same.proxied) {
+	if (del) {
+		if (same) {
+			await cf(`/zones/${zone.id}/dns_records/${same.id}`, { method: 'DELETE' });
+			console.log(`DNS: removed ${host}`);
+		} else if (records.length) {
+			console.error(`DNS: ${host} points at ${records.map((r) => r.content).join(', ')}, not ${target}. Left it alone.`);
+			process.exit(3);
+		} else {
+			console.log(`DNS: ${host} has no record`);
+		}
+	} else if (same && !same.proxied) {
 		console.log(`DNS: ${host} already points at ${target}`);
 	} else if (same) {
 		await cf(`/zones/${zone.id}/dns_records/${same.id}`, { method: 'PATCH', body: JSON.stringify({ proxied: false }) });

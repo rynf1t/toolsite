@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { search } from '#lib/search.svelte.js';
+	import { loadIndex, search, type Entry } from '#lib/search.svelte.js';
 	import { href } from '#lib/site.js';
 
-	type Entry = { path: string; title: string; page: string; group: string; text: string };
 	type Seg = { text: string; hit: boolean };
 	type Result = Entry & { titleSegs: Seg[]; excerpt: Seg[]; score: number };
 
@@ -72,15 +71,9 @@
 	});
 	const flat = $derived(groups.flatMap(([, rs]) => rs));
 
-	async function loadIndex() {
-		if (index.length) return;
-		const res = await fetch(href('/search.json'));
-		index = await res.json();
-	}
-
 	function open() {
 		if (!dialog || dialog.open) return;
-		loadIndex();
+		if (!index.length) loadIndex().then((entries) => (index = entries), () => {});
 		dialog.showModal();
 		input?.focus();
 	}

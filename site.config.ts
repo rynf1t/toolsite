@@ -27,17 +27,17 @@ export default {
 	hero: {
 		title: 'Every tool you make gets a site like this one.',
 		lead: 'Write one config file and a folder of Markdown. You get a landing page, docs with ⌘K search, a changelog, a Markdown copy of every page for agents, and a one-command deploy to your own domain.',
-		// Show the product: a real site made with toolsite.
-		image: { src: '/examples/radar.png', alt: 'The landing page of radar.itsryan.me, made with toolsite' },
+		// Show the product: these docs, as toolsite draws them.
+		image: { src: '/examples/docs.webp', alt: 'A toolsite docs page: sidebar, search and a fields table', width: 1600, height: 1000 },
 		link: { label: 'Read the quick start', href: '/docs/quick-start' }
 	},
 
 	sections: [
 		{
-			eyebrow: 'Made with it',
-			title: 'radar’s site is a toolsite.',
-			body: '[radar.itsryan.me](https://radar.itsryan.me) is the screenshot above: one config file, thirteen docs pages, a changelog, and the live demo from `src/custom`. This site is a toolsite too.',
-			link: { label: 'Visit radar.itsryan.me', href: 'https://radar.itsryan.me' },
+			eyebrow: 'Three commands',
+			title: 'From a tool’s folder to its own address.',
+			body: 'Make the site from the tool’s repo, write the words, and publish. On your own domain, the deploy adds the DNS record and turns on HTTPS. This site was made the same way.',
+			link: { label: 'Quick start', href: '/docs/quick-start' },
 			code: `# make a site for a tool
 scripts/new-site.sh mytool --from ~/Projects/mytool --domain example.com
 

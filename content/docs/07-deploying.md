@@ -30,6 +30,14 @@ It opens Cloudflare's token page, checks the token you paste, and keeps it in yo
 
 Without a token, add that `CNAME` yourself. Leave Cloudflare's proxy off for it, so GitHub can issue the certificate. HTTPS usually works within a few minutes, and the next deploy switches on HTTPS only.
 
+## Taking a site down
+
+```sh
+scripts/remove-site.sh --yes
+```
+
+It stops GitHub Pages serving the site, deletes its Cloudflare DNS record if it points at GitHub, and archives the repository. The archive keeps everything, read-only, so you can bring it back later.
+
 ## Somewhere else
 
 `npm run build` writes a plain static site to `build/`. Any static host can serve it. Set `VITE_ORIGIN` to the address, and `VITE_BASE` too if it lives under a subfolder.

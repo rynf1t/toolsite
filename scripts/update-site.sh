@@ -47,7 +47,7 @@ fi
 # What the template owns. Everything else belongs to the site.
 rsync -a --delete --exclude custom/ "$template/src/" src/
 for f in AGENTS.md CLAUDE.md vite.config.ts tsconfig.json .npmrc .gitignore \
-	scripts/deploy-pages.sh scripts/update-site.sh scripts/cloudflare-token.sh scripts/cloudflare-dns.mjs; do
+	scripts/deploy-pages.sh scripts/update-site.sh scripts/remove-site.sh scripts/cloudflare-token.sh scripts/cloudflare-dns.mjs; do
 	if [[ -f $template/$f ]]; then
 		mkdir -p "$(dirname "$f")"
 		cp "$template/$f" "$f"

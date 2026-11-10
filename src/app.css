@@ -14,7 +14,7 @@
 	--paper: oklch(0.975 0.004 var(--tint-h));
 	--surface: oklch(1 0 0);
 	--soft: color-mix(in oklab, var(--ink) 66%, transparent);
-	--muted: oklch(0.66 0.012 var(--tint-h));
+	--muted: oklch(0.54 0.012 var(--tint-h)); /* 4.5:1 on paper, for small labels */
 	--faint: color-mix(in oklab, var(--muted) 55%, var(--paper));
 	--rule: color-mix(in oklab, var(--ink) 11%, transparent);
 	--wash: color-mix(in oklab, var(--ink) 5%, transparent);
@@ -526,4 +526,34 @@ kbd {
 .prose blockquote {
 	padding-left: 1rem;
 	border-left: 2px solid var(--rule);
+}
+
+/* ---------- page transitions ---------- */
+
+/* Pages cross-fade in 150ms. The header and the docs sidebar keep their place. */
+.header {
+	view-transition-name: site-header;
+}
+
+.sidebar {
+	view-transition-name: docs-sidebar;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 150ms;
+	animation-timing-function: var(--ease);
+}
+
+::view-transition-group(site-header),
+::view-transition-group(docs-sidebar) {
+	animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none;
+	}
 }

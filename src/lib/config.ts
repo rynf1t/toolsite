@@ -2,6 +2,9 @@
 
 export type Link = { label: string; href: string };
 
+/** A screenshot in static/. Width and height stop the page jumping while it loads. */
+export type Image = { src: string; alt: string; width?: number; height?: number };
+
 export type Section = {
 	/** One or two words, shown muted above the title. */
 	eyebrow: string;
@@ -15,7 +18,7 @@ export type Section = {
 	/** A code sample beside the copy. Lines starting with # are comments. */
 	code?: string;
 	/** A screenshot in static/, beside the copy. */
-	image?: { src: string; alt: string };
+	image?: Image;
 };
 
 export type SiteConfig = {
@@ -38,7 +41,7 @@ export type SiteConfig = {
 		title: string;
 		lead: string;
 		code?: string;
-		image?: { src: string; alt: string };
+		image?: Image;
 		link?: Link;
 	};
 	sections: Section[];

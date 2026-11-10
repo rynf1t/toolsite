@@ -53,11 +53,11 @@ Each section is a band on the landing page: copy on the left, and something to l
   // then at most one of these
   items: [{ name: 'enter', text: 'Jump to the pane' }],
   code: '# a comment\nmytool run --json',
-  image: { src: '/jump.png', alt: 'The pane after a jump' }
+  image: { src: '/jump.webp', alt: 'The pane after a jump', width: 1600, height: 1000 }
 }
 ```
 
-Leave all three out and the copy stands alone. Images go in `static/`.
+Leave all three out and the copy stands alone. Images go in `static/`. Give them `width` and `height`, the image's real pixel size, so the page doesn't jump while they load. WebP keeps them small: `cwebp -q 82 shot.png -o shot.webp`.
 
 ## The hero
 

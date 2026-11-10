@@ -48,7 +48,15 @@
 				{#if CustomHero}
 					<CustomHero />
 				{:else if hero.image}
-					<img class="shot" src={href(hero.image.src)} alt={hero.image.alt} />
+					<img
+						class="shot"
+						src={href(hero.image.src)}
+						alt={hero.image.alt}
+						width={hero.image.width}
+						height={hero.image.height}
+						fetchpriority="high"
+						decoding="async"
+					/>
 				{:else if hero.code}
 					<CodeSample code={hero.code} terminal />
 				{/if}
@@ -74,7 +82,15 @@
 			{:else if s.code}
 				<CodeSample code={s.code} />
 			{:else if s.image}
-				<img class="shot" src={href(s.image.src)} alt={s.image.alt} />
+				<img
+					class="shot"
+					src={href(s.image.src)}
+					alt={s.image.alt}
+					width={s.image.width}
+					height={s.image.height}
+					loading="lazy"
+					decoding="async"
+				/>
 			{/if}
 		</section>
 	{/each}
@@ -207,11 +223,12 @@
 		}
 	}
 
+	/* Opacity and position only: both stay on the compositor. A blur here cost
+	   seconds of main-thread time on slower phones. */
 	@keyframes reveal {
 		from {
 			opacity: 0;
 			translate: 0 10px;
-			filter: blur(3px);
 		}
 	}
 
