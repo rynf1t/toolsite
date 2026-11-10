@@ -40,6 +40,9 @@ __NAME__ --help`,
 		}
 	],
 
+	// Who made it, linked from the footer.
+	author: { label: 'by __AUTHOR__', href: '__AUTHOR_URL__' },
+
 	questions: [
 		{
 			q: 'Can my agent read these docs?',

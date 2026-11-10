@@ -2,7 +2,7 @@
 
 A landing page and docs site for a tool, made from one config file and a
 folder of Markdown. This repo is the template, and its own site is the
-example: https://rynf1t.github.io/toolsite
+example: https://toolsite.itsryan.me
 
 ## Make a site for a tool
 

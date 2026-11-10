@@ -31,4 +31,10 @@ This makes `mytool-site` next to the template, with a starter config, one docs p
 toolsite/scripts/new-site.sh mytool --from ~/Projects/mytool
 ```
 
+To publish on your own domain, add `--domain`. The site goes to `mytool.example.com`, and the deploy adds the DNS record if the domain is on Cloudflare:
+
+```sh
+toolsite/scripts/new-site.sh mytool --from ~/Projects/mytool --domain example.com
+```
+
 The [quick start](/docs/quick-start) goes from here to a published site.

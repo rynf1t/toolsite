@@ -23,6 +23,7 @@ group: Guide
 | `sections` | The landing page bands. See [Sections](#sections). |
 | `questions` | The questions at the bottom of the landing page. |
 | `nav` | Optional. Extra header links after Docs, such as a second tool's docs group. |
+| `author` | Optional. Who made it, as `{ label, href }`, linked at the end of the footer. |
 
 Text fields take inline Markdown: `code`, bold, and links. A link that starts with `/` is a path on this site.
 

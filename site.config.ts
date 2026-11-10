@@ -11,7 +11,7 @@ export default {
 	name: 'toolsite',
 	description: 'A landing page and docs site for a tool, made from one config file and a folder of Markdown.',
 	repo: 'https://github.com/rynf1t/toolsite',
-	origin: 'https://rynf1t.github.io/toolsite',
+	origin: 'https://toolsite.itsryan.me',
 	install: 'git clone https://github.com/rynf1t/toolsite',
 	requirement: 'Needs Node 22 or later and the GitHub CLI to publish.',
 	status: 'Early',
@@ -26,21 +26,27 @@ export default {
 
 	hero: {
 		title: 'Every tool you make gets a site like this one.',
-		lead: 'Write one config file and a folder of Markdown. You get a landing page, docs with ⌘K search, a Markdown copy of every page for agents, and a one-command deploy to GitHub Pages.',
-		// Show the product. Either a screenshot in static/ ({ src: '/hero.png', alt: '...' })
-		// or a short terminal session as code.
-		code: `# make a site for a tool
-scripts/new-site.sh mytool --from ~/Projects/mytool
-
-# write site.config.ts and content/docs, then look
-npm run dev
-
-# publish to GitHub Pages
-scripts/deploy-pages.sh`,
+		lead: 'Write one config file and a folder of Markdown. You get a landing page, docs with ⌘K search, a changelog, a Markdown copy of every page for agents, and a one-command deploy to your own domain.',
+		// Show the product: a real site made with toolsite.
+		image: { src: '/examples/radar.png', alt: 'The landing page of radar.itsryan.me, made with toolsite' },
 		link: { label: 'Read the quick start', href: '/docs/quick-start' }
 	},
 
 	sections: [
+		{
+			eyebrow: 'Made with it',
+			title: 'radar’s site is a toolsite.',
+			body: '[radar.itsryan.me](https://radar.itsryan.me) is the screenshot above: one config file, thirteen docs pages, a changelog, and the live demo from `src/custom`. This site is a toolsite too.',
+			link: { label: 'Visit radar.itsryan.me', href: 'https://radar.itsryan.me' },
+			code: `# make a site for a tool
+scripts/new-site.sh mytool --from ~/Projects/mytool --domain example.com
+
+# write site.config.ts and content/docs, then look
+npm run dev
+
+# publish, with DNS and HTTPS
+scripts/deploy-pages.sh`
+		},
 		{
 			eyebrow: 'One source',
 			title: 'Write it once, get it five ways.',
@@ -68,6 +74,8 @@ scripts/deploy-pages.sh`,
 			link: { label: 'Read this, agents', href: '/docs/agents' }
 		}
 	],
+
+	author: { label: 'by Ryan', href: 'https://itsryan.me' },
 
 	questions: [
 		{

@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 # Make a new tool site from this template.
 #
-#   scripts/new-site.sh NAME [--from TOOL_DIR] [--dir DIR] [--no-install]
+#   scripts/new-site.sh NAME [--from TOOL_DIR] [--domain DOMAIN] [--dir DIR] [--no-install]
 #
 # NAME      the tool's name, as it appears in the header
 # --from    the tool's folder. Its docs/*.md (or README.md) become the first
 #           docs pages, and its git remote and go.mod fill in repo and install.
+# --domain  publish at NAME.DOMAIN instead of your github.io address.
 # --dir     where to make the site. Default: NAME-site next to this template.
 set -euo pipefail
 
-usage() { sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; }
 
-name='' from='' dir='' install=1
+name='' from='' dir='' domain='' install=1
 while (($#)); do
 	case $1 in
 		--from) from=${2:?--from needs a folder}; shift 2 ;;
 		--dir) dir=${2:?--dir needs a folder}; shift 2 ;;
+		--domain) domain=${2:?--domain needs a domain, like example.com}; shift 2 ;;
 		--no-install) install=0; shift ;;
 		-h|--help) usage; exit 0 ;;
 		-*) echo "new-site: unknown option $1" >&2; usage >&2; exit 2 ;;
@@ -45,7 +47,7 @@ else
 fi
 
 # The template's own content stays behind.
-rm -rf "$dir/content" "$dir/static/"*.png "$dir/scripts/new-site.sh" "$dir/scripts/starter"
+rm -rf "$dir/content" "$dir/static/examples" "$dir/static/"*.png "$dir/scripts/new-site.sh" "$dir/scripts/starter"
 mkdir -p "$dir/content/docs"
 git -C "$template" rev-parse --short HEAD >"$dir/.toolsite-version" 2>/dev/null || echo unknown >"$dir/.toolsite-version"
 
@@ -69,7 +71,17 @@ if [[ -n $from ]]; then
 		install_cmd="npm install -g $(node -p "require('$from/package.json').name" 2>/dev/null || echo "$name")"
 	fi
 fi
-origin="https://$owner.github.io/$(basename "$dir")"
+if [[ -n $domain ]]; then
+	origin="https://$(tr '[:upper:]' '[:lower:]' <<<"$name").$domain"
+else
+	origin="https://$owner.github.io/$(basename "$dir")"
+fi
+
+# Who made it: your git name, linked to your domain or GitHub profile.
+author=$(git config user.name 2>/dev/null | awk '{print $1}')
+author=${author:-$owner}
+author_url=${domain:+https://$domain}
+author_url=${author_url:-https://github.com/$owner}
 
 # A tint and accent that differ from tool to tool, picked from the name.
 sum=$(printf %s "$name" | cksum | cut -d' ' -f1)
@@ -78,7 +90,8 @@ tint=$(( (accent + 180) % 360 ))
 
 fill() {
 	sed -e "s#__NAME__#$name#g" -e "s#__REPO__#$repo#g" -e "s#__ORIGIN__#$origin#g" \
-		-e "s#__INSTALL__#$install_cmd#g" -e "s#__TINT__#$tint#g" -e "s#__ACCENT__#$accent#g" "$1"
+		-e "s#__INSTALL__#$install_cmd#g" -e "s#__TINT__#$tint#g" -e "s#__ACCENT__#$accent#g" \
+		-e "s#__AUTHOR__#$author#g" -e "s#__AUTHOR_URL__#$author_url#g" "$1"
 }
 fill "$template/scripts/starter/site.config.ts" >"$dir/site.config.ts"
 
