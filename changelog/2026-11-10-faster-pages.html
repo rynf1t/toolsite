@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-AU">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+		<script>
+			// Light or dark before first paint: the reader's choice if they made one, otherwise the system's.
+			(function () {
+				var q = matchMedia('(prefers-color-scheme: dark)');
+				function saved() {
+					try { return localStorage.getItem('toolsite-mode'); } catch (e) { return null; }
+				}
+				function apply() {
+					document.documentElement.dataset.mode = saved() || (q.matches ? 'dark' : 'light');
+				}
+				apply();
+				q.addEventListener('change', apply);
+			})();
+		</script>
+		<link href="/_app/immutable/entry/start.BiGYRAOe.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/payload.DSmR2FwN.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DclECHGd.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DudTz5nx.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/irT2goNU.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DqpWKNGl.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Bslm0Igk.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/app.5v3Uvrsw.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/0.BByj6mGY.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CAy6bRqB.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DeZ0Om4P.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/5.Br-pfeXq.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/5QxTV_PG.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/mgtXcmO3.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DVj17ek_.js" rel="modulepreload">
+		<!--12qhfyh--><!----><style>html:root{--tint-h:165;--accent-h:150;--focus-h:262}</style><!----> <link rel="preload" href="/_app/immutable/assets/instrument-sans-latin-wght-normal.BbzFLZTg.woff2" as="font" type="font/woff2" crossorigin="anonymous"/> <link rel="icon" href="/favicon.svg" type="image/svg+xml"/> <meta name="theme-color" content="#f4f8f6" media="(prefers-color-scheme: light)"/> <meta name="theme-color" content="#0d120f" media="(prefers-color-scheme: dark)"/><!----><!--qgnb9j--><meta name="description" content="Search that's ready before you open it, page cross-fades, and remove-site.sh."/> <link rel="alternate" type="text/markdown" href="/changelog/2026-11-10-faster-pages.md" title="Markdown"/><!----><title>Faster pages, smoother moves, and taking a site down · toolsite changelog</title>
+		<link href="/_app/immutable/assets/0.Cm4VwJkO.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/ModeToggle.BGcFn2YQ.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/SiteFooter.C2iJMiiC.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/5.XAorldwP.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[--><!--[0--><!--[--><!--[--><!--[-1--><!--[--><header class="header svelte-a8kxe2"><a href="/" class="wordmark svelte-10y6uor" aria-label="toolsite home"><svg viewBox="0 0 20 20" aria-hidden="true" class="svelte-10y6uor"><!----><rect x="2.75" y="2.75" width="14.5" height="14.5" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4"/><rect x="6.5" y="6.5" width="7" height="7" rx="2" fill="var(--accent)"/><!----></svg> <span>toolsite</span></a><!----> <nav aria-label="Site" class="svelte-a8kxe2"><!--[--><a href="/docs" class="svelte-a8kxe2">Docs</a><a href="/changelog" class="extra svelte-a8kxe2" aria-current="page">Changelog</a><!--]--> <a href="https://github.com/rynf1t/toolsite" class="gh svelte-a8kxe2">GitHub</a> <button type="button" class="trigger edge svelte-hsr9lg" aria-label="Search" aria-keyshortcuts="Meta+K"><svg viewBox="0 0 16 16" aria-hidden="true" class="svelte-hsr9lg"><circle cx="7" cy="7" r="4.75" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="m10.5 10.5 3.25 3.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg> <span class="svelte-hsr9lg">Search</span> <kbd class="svelte-hsr9lg">⌘K</kbd></button><!----> <button type="button" class="mode svelte-pkhzb5" aria-label="Switch to dark mode"><svg viewBox="0 0 16 16" aria-hidden="true" class="svelte-pkhzb5"><!--[-1--><path d="M13.5 9.6A5.75 5.75 0 0 1 6.4 2.5a5.75 5.75 0 1 0 7.1 7.1Z"></path><!--]--></svg></button><!----></nav></header><!----> <main class="svelte-qgnb9j"><p class="back svelte-qgnb9j"><a href="/changelog" class="svelte-qgnb9j">Changelog</a></p> <p class="date svelte-qgnb9j"><time>10 NOV 2026</time></p> <h1 class="svelte-qgnb9j">Faster pages, smoother moves, and taking a site down</h1> <!--[0--><p class="version svelte-qgnb9j">0.3.0</p><!--]--> <div class="prose svelte-qgnb9j"><!----><p class="lead">Pages load and move faster, and a site can now be taken down with one command.</p>
+<h2 id="faster-and-smoother">Faster and smoother<a class="anchor" href="#faster-and-smoother" aria-label="Link to this section"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M6.5 9.5a2.8 2.8 0 0 0 4 0l2.2-2.2a2.8 2.8 0 0 0-4-4l-.7.7"/><path d="M9.5 6.5a2.8 2.8 0 0 0-4 0L3.3 8.7a2.8 2.8 0 0 0 4 4l.7-.7"/></svg></a></h2>
+<ul>
+<li>Search fetches its index as soon as you hover or focus the search button, so results are there the moment it opens.</li>
+<li>Pages cross-fade in 150ms. The header and the docs sidebar stay still while the page changes. With Reduce Motion on, pages switch instantly.</li>
+<li>The text font is preloaded, so headings don&#39;t reflow as it arrives.</li>
+<li>Images take a <code>width</code> and <code>height</code>, so the page doesn&#39;t jump while they load. The hero here is now a 56 KB WebP.</li>
+</ul>
+<h2 id="taking-a-site-down">Taking a site down<a class="anchor" href="#taking-a-site-down" aria-label="Link to this section"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M6.5 9.5a2.8 2.8 0 0 0 4 0l2.2-2.2a2.8 2.8 0 0 0-4-4l-.7.7"/><path d="M9.5 6.5a2.8 2.8 0 0 0-4 0L3.3 8.7a2.8 2.8 0 0 0 4 4l.7-.7"/></svg></a></h2>
+<p><code>scripts/remove-site.sh --yes</code> stops GitHub Pages serving the site, deletes its DNS record on Cloudflare, and archives the repository. See <a href="/docs/deploying#taking-a-site-down">Deploying</a>.</p>
+<!----></div> <p class="md svelte-qgnb9j"><a href="/changelog/2026-11-10-faster-pages.md" data-sveltekit-reload="" class="svelte-qgnb9j">This post as Markdown</a></p></main> <footer class="footer svelte-4jwo3w"><a href="/docs" class="svelte-4jwo3w">Docs</a> <!--[--><!--]--> <!--[0--><a href="/changelog" class="svelte-4jwo3w">Changelog</a><!--]--> <span class="rule svelte-4jwo3w" aria-hidden="true"></span> <a href="/llms.txt" data-sveltekit-reload="" class="svelte-4jwo3w">llms.txt</a> <a href="https://github.com/rynf1t/toolsite" class="svelte-4jwo3w">GitHub</a> <!--[0--><a href="https://itsryan.me" class="svelte-4jwo3w">by Ryan</a><!--]--></footer><!----><!--]--><!--]--><!--]--><!----> <dialog class="search svelte-1002zyw" aria-label="Search the docs"><div class="bar svelte-1002zyw"><svg viewBox="0 0 16 16" aria-hidden="true" class="glass svelte-1002zyw"><circle cx="7" cy="7" r="4.75" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="m10.5 10.5 3.25 3.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg> <input value="" type="text" placeholder="Search the docs" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results" aria-autocomplete="list" class="svelte-1002zyw"/> <button type="button" class="esc svelte-1002zyw" aria-label="Close search">esc</button></div> <div id="search-results" class="results svelte-1002zyw" role="listbox" aria-label="Results"><!--[-1--><!--]--> <!--[--><!--]--></div></dialog><!----><!--]--><!--]--><!--]--><!----> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_eq0c7w = {
+						base: "",
+						version: "1794282508869"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					import("/_app/immutable/entry/start.BiGYRAOe.js").then(async (kit) => {
+						kit.init(__sveltekit_eq0c7w);
+						const app = await import("/_app/immutable/entry/app.5v3Uvrsw.js");
+						kit.start(app, element, {
+							node_ids: [0, 5],
+							data: [null,{type:"data",data:{entry:{title:"Faster pages, smoother moves, and taking a site down",description:"Search that's ready before you open it, page cross-fades, and remove-site.sh.",version:"0.3.0",date:"10 NOV 2026",html:"\u003Cp class=\"lead\">Pages load and move faster, and a site can now be taken down with one command.\u003C/p>\n\u003Ch2 id=\"faster-and-smoother\">Faster and smoother\u003Ca class=\"anchor\" href=\"#faster-and-smoother\" aria-label=\"Link to this section\">\u003Csvg viewBox=\"0 0 16 16\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" aria-hidden=\"true\">\u003Cpath d=\"M6.5 9.5a2.8 2.8 0 0 0 4 0l2.2-2.2a2.8 2.8 0 0 0-4-4l-.7.7\"/>\u003Cpath d=\"M9.5 6.5a2.8 2.8 0 0 0-4 0L3.3 8.7a2.8 2.8 0 0 0 4 4l.7-.7\"/>\u003C/svg>\u003C/a>\u003C/h2>\n\u003Cul>\n\u003Cli>Search fetches its index as soon as you hover or focus the search button, so results are there the moment it opens.\u003C/li>\n\u003Cli>Pages cross-fade in 150ms. The header and the docs sidebar stay still while the page changes. With Reduce Motion on, pages switch instantly.\u003C/li>\n\u003Cli>The text font is preloaded, so headings don&#39;t reflow as it arrives.\u003C/li>\n\u003Cli>Images take a \u003Ccode>width\u003C/code> and \u003Ccode>height\u003C/code>, so the page doesn&#39;t jump while they load. The hero here is now a 56 KB WebP.\u003C/li>\n\u003C/ul>\n\u003Ch2 id=\"taking-a-site-down\">Taking a site down\u003Ca class=\"anchor\" href=\"#taking-a-site-down\" aria-label=\"Link to this section\">\u003Csvg viewBox=\"0 0 16 16\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" aria-hidden=\"true\">\u003Cpath d=\"M6.5 9.5a2.8 2.8 0 0 0 4 0l2.2-2.2a2.8 2.8 0 0 0-4-4l-.7.7\"/>\u003Cpath d=\"M9.5 6.5a2.8 2.8 0 0 0-4 0L3.3 8.7a2.8 2.8 0 0 0 4 4l.7-.7\"/>\u003C/svg>\u003C/a>\u003C/h2>\n\u003Cp>\u003Ccode>scripts/remove-site.sh --yes\u003C/code> stops GitHub Pages serving the site, deletes its DNS record on Cloudflare, and archives the repository. See \u003Ca href=\"/docs/deploying#taking-a-site-down\">Deploying\u003C/a>.\u003C/p>\n",path:"/changelog/2026-11-10-faster-pages"}},uses:{params:["slug"]}}],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,450 @@
+---
+title: "Installation"
+description: "What you need, and how to make a site for a tool."
+canonical_url: https://toolsite.itsryan.me/docs/installation
+---
+
+# Installation
+
+**toolsite is a template. You copy it once per tool, and each copy becomes that tool's site.**
+
+## What you need
+
+- Node 22 or later.
+- The [GitHub CLI](https://cli.github.com), logged in, if you want to publish to GitHub Pages.
+
+## Get the template
+
+```sh
+git clone https://github.com/rynf1t/toolsite
+```
+
+Keep it somewhere you'll find it again, like `~/Projects/toolsite`. You never edit the template to make a site. You make a copy.
+
+## Make a site
+
+```sh
+toolsite/scripts/new-site.sh mytool
+```
+
+This makes `mytool-site` next to the template, with a starter config, one docs page, a fresh git repository and its packages installed. Add `--from` with your tool's folder and it also brings across the tool's `docs/` folder, or its README if there's no `docs/`:
+
+```sh
+toolsite/scripts/new-site.sh mytool --from ~/Projects/mytool
+```
+
+To publish on your own domain, add `--domain`. The site goes to `mytool.example.com`, and the deploy adds the DNS record if the domain is on Cloudflare:
+
+```sh
+toolsite/scripts/new-site.sh mytool --from ~/Projects/mytool --domain example.com
+```
+
+The [quick start](https://toolsite.itsryan.me/docs/quick-start.md) goes from here to a published site.
+
+
+---
+title: "Quick start"
+description: "From an empty site to a published one."
+canonical_url: https://toolsite.itsryan.me/docs/quick-start
+---
+
+# Quick start
+
+**Four steps: make the site, fill in the config, write the docs, publish.**
+
+## 1. Make the site
+
+```sh
+toolsite/scripts/new-site.sh mytool --from ~/Projects/mytool
+cd mytool-site
+npm run dev
+```
+
+The dev server prints an address, usually `http://localhost:5173`. Keep it open while you work. It reloads on every save.
+
+## 2. Fill in the config
+
+Open `site.config.ts`. Every `TODO:` needs a real value: the one sentence that says what the tool is, the install command and what it needs to run. The two colour hues start out picked from the name. Change them if you like. [Configuration](https://toolsite.itsryan.me/docs/configuration.md) covers every field.
+
+## 3. Write the docs
+
+Each page is a Markdown file in `content/docs`, named like `03-commands.md`. The number sets the order. [Writing docs](https://toolsite.itsryan.me/docs/writing-docs.md) has the conventions.
+
+## 4. Publish
+
+```sh
+scripts/deploy-pages.sh
+```
+
+The first run creates a public GitHub repository for the site and turns on Pages. After that, the same command updates it. GitHub usually has it live within a minute. See [Deploying](https://toolsite.itsryan.me/docs/deploying.md) for your own domain.
+
+
+---
+title: "Configuration"
+description: "Every field in site.config.ts."
+canonical_url: https://toolsite.itsryan.me/docs/configuration
+---
+
+# Configuration
+
+**`site.config.ts` holds everything that makes the site about your tool. The landing page, its Markdown copy, `llms.txt`, the header, the favicon and the colours all read from it.**
+
+## Fields
+
+| Field | What it's for |
+|---|---|
+| `name` | The tool's name, as you'd write it in a sentence. Shown in the header and page titles. |
+| `description` | One sentence a stranger understands. Used in meta tags and `llms.txt`. |
+| `repo` | The tool's source. The header's GitHub link goes here. |
+| `origin` | Where the site lives, such as `https://you.github.io/mytool-site`. Links in the Markdown copies are built from it. |
+| `install` | The first command someone runs. Shown with a copy button. |
+| `requirement` | What it needs, printed under the install line. |
+| `status` | Optional. A short chip above the headline, such as `Early` or `v1.2`. |
+| `colours` | Two hues. See [Colours](#colours). |
+| `mark` | Optional. The inside of a 20 by 20 SVG for the header and favicon. |
+| `hero` | The headline, the lead paragraph, and a screenshot or code sample. |
+| `sections` | The landing page bands. See [Sections](#sections). |
+| `questions` | The questions at the bottom of the landing page. |
+| `nav` | Optional. Extra header links after Docs, such as a second tool's docs group. |
+| `author` | Optional. Who made it, as `{ label, href }`, linked at the end of the footer. |
+
+Text fields take inline Markdown: `code`, bold, and links. A link that starts with `/` is a path on this site.
+
+## Colours
+
+```ts
+colours: { tint: 255, accent: 75 },
+```
+
+Both are hues on the oklch colour wheel, from 0 to 360. Roughly: 25 red, 75 amber, 150 green, 200 teal, 255 blue, 300 violet.
+
+- `tint` nudges every grey on the page toward a hue. The greys stay grey. They just feel warm or cool.
+- `accent` is the one colour with jobs: the text caret, selection, search highlights, the status dot and one syntax colour. It appears nowhere else.
+
+Focus rings get their own hue, picked to stay clear of the accent. Light and dark palettes, shadows, the browser's theme colour and the favicon all follow from these two numbers.
+
+## Sections
+
+Each section is a band on the landing page: copy on the left, and something to look at on the right.
+
+```ts
+{
+  eyebrow: 'Jump',
+  title: 'Enter takes you there.',
+  body: 'Two or three sentences. Inline `code` and [links](https://toolsite.itsryan.me/docs/commands.md) work.',
+  link: { label: 'Commands', href: '/docs/commands' },
+  // then at most one of these
+  items: [{ name: 'enter', text: 'Jump to the pane' }],
+  code: '# a comment\nmytool run --json',
+  image: { src: '/jump.webp', alt: 'The pane after a jump', width: 1600, height: 1000 }
+}
+```
+
+Leave all three out and the copy stands alone. Images go in `static/`. Give them `width` and `height`, the image's real pixel size, so the page doesn't jump while they load. WebP keeps them small: `cwebp -q 82 shot.png -o shot.webp`.
+
+## The hero
+
+Show the tool working. Use `image` for a screenshot in `static/`, or `code` for a short terminal session. In a terminal sample the first word of each command is coloured as the program, and lines starting with `#` are comments.
+
+For a live demo, add `src/custom/Hero.svelte`. See [Custom hero and styles](https://toolsite.itsryan.me/docs/custom-code.md).
+
+
+---
+title: "Writing docs"
+description: "File names, front matter and the conventions every page follows."
+canonical_url: https://toolsite.itsryan.me/docs/writing-docs
+---
+
+# Writing docs
+
+**Each docs page is one Markdown file in `content/docs`. The site builds the page, the sidebar, search, the Markdown copy and the `llms.txt` entry from it.**
+
+## File names
+
+Name files with a number and a slug, like `03-commands.md`. The number sets the order and the slug becomes the address, so this one lives at `/docs/commands`. The first page is where `/docs` opens, and it should be Installation.
+
+## Front matter
+
+```yaml
+---
+title: Commands
+description: Every command, its flags and what it prints.
+group: Reference
+---
+```
+
+`group` makes the sidebar headings. Pages with the same group sit together, in file order.
+
+## The lead
+
+Make the first paragraph bold, and only that, and it becomes the page's lead: larger, and in full ink. Use it for the one or two sentences that answer what this page is for.
+
+## Headings
+
+Use `##` for sections. Each one gets a link on hover, an entry under the page in the sidebar, and its own result in search. Keep them short and say what's in them.
+
+## Code
+
+Fenced code blocks get syntax colours and a copy button. Name the language after the fence. The ones built in are `sh`, `go`, `json`, `lua`, `ts`, `js`, `yaml`, `toml`, `swift`, `python` and `rust`. Add more in `src/lib/docs.server.ts`.
+
+## Links
+
+Link to other pages by path, like `[Commands](https://toolsite.itsryan.me/docs/commands.md)`. The site adds the base path when it's published under a subfolder, and the Markdown copies turn these links into full addresses that point at other Markdown copies.
+
+## Good docs pages
+
+- Open at installation. Someone arriving cold should get to a working command in one page.
+- Put limits next to the feature they limit.
+- Write errors and fixes together: what you'll see, and what to do.
+- Prefer prose to bullet lists, and tables for anything with two or more fields.
+
+
+---
+title: "Changelog"
+description: "Dated release notes, one Markdown file each."
+canonical_url: https://toolsite.itsryan.me/docs/changelog
+---
+
+# Changelog
+
+**Release notes live in `content/changelog`, one file per release. Once there's one, the header gets a Changelog link.**
+
+## File names
+
+Name each file with its date and a slug, like `2026-11-10-toasts.md`. The date sets the order, newest first, and the whole name becomes the address: `/changelog/2026-11-10-toasts`.
+
+## Front matter
+
+```yaml
+---
+title: Toasts when an agent needs you
+description: One line for llms.txt and search.
+version: 0.3.0
+---
+```
+
+`version` is optional. It shows under the title.
+
+## Writing an entry
+
+Make the first paragraph bold. It becomes the lead on the changelog page, so it should say what changed for the reader in a sentence or two. Then one `##` section per change. Say what's different now, and what it replaces if anything.
+
+## What the site makes from it
+
+- `/changelog`: every entry, newest first, with its lead and a link to the full post.
+- `/changelog/SLUG`: the full post.
+- `/changelog.md` and `/changelog/SLUG.md`: Markdown copies for agents.
+- `llms.txt` lists the ten newest. `llms-full.txt` and search include every entry.
+
+
+---
+title: "Custom hero and styles"
+description: "A live demo on the landing page, and site-specific CSS."
+canonical_url: https://toolsite.itsryan.me/docs/custom-code
+---
+
+# Custom hero and styles
+
+**A site can bring its own code in `src/custom`. Template updates never touch that folder.**
+
+## A custom hero
+
+Add `src/custom/Hero.svelte` and the landing page shows it in place of the hero screenshot or code sample. It gets the right-hand column, about 30rem wide on a desktop and the full width on a phone. Keep it light: it runs on every visit to the home page.
+
+Anything the hero imports, like data for a demo, goes in `src/custom` too.
+
+## Custom styles
+
+Every `.css` file in `src/custom` loads on every page, after the template's styles. Use the colour tokens from `src/app.css`, like `--ink`, `--soft`, `--accent` and `--surface`, so both light and dark work.
+
+Colours that only make sense for this tool can go there as new tokens. Define the dark version under `:root[data-mode='dark']`.
+
+## Everything else
+
+Changes anywhere else in `src` are the template's, and `scripts/update-site.sh` replaces them. If a site needs something the template can't do, add it to the template so every site gets it.
+
+
+---
+title: "Deploying"
+description: "Publishing to GitHub Pages, and using your own domain."
+canonical_url: https://toolsite.itsryan.me/docs/deploying
+---
+
+# Deploying
+
+**`scripts/deploy-pages.sh` builds the site and publishes it to GitHub Pages. Run it again whenever you change something.**
+
+## What it does
+
+1. Stops if `site.config.ts` still has a `TODO:` in it.
+2. Creates a public GitHub repository for the site, named after its folder, if there isn't one.
+3. Pushes `main`.
+4. Builds the site for the address in `origin`.
+5. Replaces the `gh-pages` branch with the build and turns on Pages.
+
+Pages needs a public repository on a free GitHub plan. The site's repository is separate from your tool's, so the tool can stay private.
+
+## Your own domain
+
+Set `origin` in `site.config.ts` to the address, like `https://mytool.example.com`, and deploy. The script sees the domain isn't on github.io, so it builds without a subfolder, adds the `CNAME` file and tells GitHub about the domain.
+
+If the domain's DNS is on Cloudflare, the script adds the DNS record too. It needs a Cloudflare token for that, which you save once per Mac:
+
+```sh
+scripts/cloudflare-token.sh
+```
+
+It opens Cloudflare's token page, checks the token you paste, and keeps it in your login keychain. From then on every deploy makes sure there's a DNS-only `CNAME` from the domain to your `github.io` address. It never replaces a record that points somewhere else. It tells you what's there and stops.
+
+Without a token, add that `CNAME` yourself. Leave Cloudflare's proxy off for it, so GitHub can issue the certificate. HTTPS usually works within a few minutes, and the next deploy switches on HTTPS only.
+
+## Taking a site down
+
+```sh
+scripts/remove-site.sh --yes
+```
+
+It stops GitHub Pages serving the site, deletes its Cloudflare DNS record if it points at GitHub, and archives the repository. The archive keeps everything, read-only, so you can bring it back later.
+
+## Somewhere else
+
+`npm run build` writes a plain static site to `build/`. Any static host can serve it. Set `VITE_ORIGIN` to the address, and `VITE_BASE` too if it lives under a subfolder.
+
+
+---
+title: "Updating a site"
+description: "Pulling template improvements into an existing site."
+canonical_url: https://toolsite.itsryan.me/docs/updating
+---
+
+# Updating a site
+
+**Each site is a copy of the template, so it doesn't change on its own. `scripts/update-site.sh` brings it up to date.**
+
+## Run it
+
+```sh
+scripts/update-site.sh
+npm run check && npm run build
+git diff
+```
+
+Commit when you're happy with it. The script won't run with uncommitted changes, so the update is always a diff of its own.
+
+## What it changes
+
+The template's code: `src` (apart from `src/custom`), the scripts, `AGENTS.md`, `CLAUDE.md` and the build config. It takes the template's `package.json` but keeps your site's name, and runs `npm install` if the packages changed. It records the template version in `.toolsite-version`.
+
+## What it leaves alone
+
+`site.config.ts`, `content`, `static`, `src/custom` and `README.md`. Those are the site's.
+
+## Where the template comes from
+
+`--template DIR` if you give it, then `$TOOLSITE_TEMPLATE`, then `~/Projects/toolsite`, and otherwise a fresh clone from GitHub.
+
+
+---
+title: "Agents"
+description: "How a coding agent builds a site, and how agents read one."
+canonical_url: https://toolsite.itsryan.me/docs/agents
+---
+
+# Agents
+
+**Agents are first-class readers and writers here. They can make a site for you, and every published page is there for them as Markdown.**
+
+## Having an agent build the site
+
+Each site carries an `AGENTS.md` with the rules: where things go, what each config field is for, and what good copy looks like. To have an agent build a site, ask it something like:
+
+```text
+Make a toolsite for ~/Projects/mytool. Run new-site.sh with --from,
+then fill in site.config.ts and content/docs from the tool's code and README.
+Show me the dev server before deploying.
+```
+
+## Reading a published site
+
+- Add `.md` to any docs address for the page as Markdown, with front matter.
+- `/index.md` is the landing page as Markdown.
+- `/llms.txt` lists every page with its description. `/llms-full.txt` is every page in one file.
+- `/search.json` is the search index, one entry per section.
+
+Links inside the Markdown copies point at other Markdown copies, so an agent can follow them without parsing HTML.
+
+
+---
+title: "Limits"
+description: "What toolsite doesn't do, and how to work around it."
+canonical_url: https://toolsite.itsryan.me/docs/limits
+---
+
+# Limits
+
+**One landing page and one docs set per site. A few things are out of scope on purpose.**
+
+## Two tools on one site
+
+A site has one landing page. If two tools ship together, give the second its own sidebar group with `group: craftkit` in its pages' front matter, and add a header link with `nav` in `site.config.ts`. If it stands on its own, give it its own site.
+
+## DNS only on Cloudflare
+
+The deploy script can add DNS records on Cloudflare. Anywhere else, add the `CNAME` yourself once per domain.
+
+## GitHub Pages needs a public repository
+
+On a free GitHub plan, so the site's source is public. The tool's own repository can stay private, because the site lives in a separate one.
+
+## Template code is the template's
+
+`scripts/update-site.sh` replaces everything in `src` outside `src/custom`. Put site-specific code in `src/custom`, or add the feature to the template.
+
+
+---
+title: "Changelog, a light and dark switch, custom heroes and template updates (2026-11-10)"
+description: "Four things the first version couldn't do."
+canonical_url: https://toolsite.itsryan.me/changelog/2026-11-10-first-release
+---
+
+# Changelog, a light and dark switch, custom heroes and template updates (2026-11-10)
+
+**Sites can now keep release notes, readers can pick light or dark, a site can bring its own hero demo, and existing sites can pull in template improvements.**
+
+## Changelog
+
+Put dated Markdown files in `content/changelog`, named like `2026-11-10-what-changed.md`. The site adds a Changelog link to the header, an index page, a page per entry, Markdown copies and entries in `llms.txt`. See [Changelog](https://toolsite.itsryan.me/docs/changelog.md).
+
+## Light and dark
+
+There's now a switch in the header and the docs sidebar. Pages still follow the system until a reader picks, and the choice is remembered.
+
+## Custom heroes
+
+Drop a `Hero.svelte` into `src/custom` and it replaces the sample on the landing page. CSS files there load on every page. Template updates never touch that folder.
+
+## Template updates
+
+`scripts/update-site.sh` brings a site up to the latest template. It replaces the template's code and leaves your words, images and `src/custom` alone. See [Updating a site](https://toolsite.itsryan.me/docs/updating.md).
+
+
+---
+title: "Faster pages, smoother moves, and taking a site down (2026-11-10)"
+description: "Search that's ready before you open it, page cross-fades, and remove-site.sh."
+canonical_url: https://toolsite.itsryan.me/changelog/2026-11-10-faster-pages
+---
+
+# Faster pages, smoother moves, and taking a site down (2026-11-10)
+
+**Pages load and move faster, and a site can now be taken down with one command.**
+
+## Faster and smoother
+
+- Search fetches its index as soon as you hover or focus the search button, so results are there the moment it opens.
+- Pages cross-fade in 150ms. The header and the docs sidebar stay still while the page changes. With Reduce Motion on, pages switch instantly.
+- The text font is preloaded, so headings don't reflow as it arrives.
+- Images take a `width` and `height`, so the page doesn't jump while they load. The hero here is now a 56 KB WebP.
+
+## Taking a site down
+
+`scripts/remove-site.sh --yes` stops GitHub Pages serving the site, deletes its DNS record on Cloudflare, and archives the repository. See [Deploying](https://toolsite.itsryan.me/docs/deploying.md#taking-a-site-down).

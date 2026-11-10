@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-AU">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+		<script>
+			// Light or dark before first paint: the reader's choice if they made one, otherwise the system's.
+			(function () {
+				var q = matchMedia('(prefers-color-scheme: dark)');
+				function saved() {
+					try { return localStorage.getItem('toolsite-mode'); } catch (e) { return null; }
+				}
+				function apply() {
+					document.documentElement.dataset.mode = saved() || (q.matches ? 'dark' : 'light');
+				}
+				apply();
+				q.addEventListener('change', apply);
+			})();
+		</script>
+		<link href="/_app/immutable/entry/start.BiGYRAOe.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/payload.DSmR2FwN.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DclECHGd.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DudTz5nx.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/irT2goNU.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DqpWKNGl.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/Bslm0Igk.js" rel="modulepreload">
+		<link href="/_app/immutable/entry/app.5v3Uvrsw.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/0.BByj6mGY.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/CAy6bRqB.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DeZ0Om4P.js" rel="modulepreload">
+		<link href="/_app/immutable/nodes/4.D2X9FxkP.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/mgtXcmO3.js" rel="modulepreload">
+		<link href="/_app/immutable/chunks/DVj17ek_.js" rel="modulepreload">
+		<!--12qhfyh--><!----><style>html:root{--tint-h:165;--accent-h:150;--focus-h:262}</style><!----> <link rel="preload" href="/_app/immutable/assets/instrument-sans-latin-wght-normal.BbzFLZTg.woff2" as="font" type="font/woff2" crossorigin="anonymous"/> <link rel="icon" href="/favicon.svg" type="image/svg+xml"/> <meta name="theme-color" content="#f4f8f6" media="(prefers-color-scheme: light)"/> <meta name="theme-color" content="#0d120f" media="(prefers-color-scheme: dark)"/><!----><!--c3nf25--><meta name="description" content="What changed in toolsite, newest first."/> <link rel="alternate" type="text/markdown" href="/changelog.md" title="Markdown"/><!----><title>Changelog · toolsite</title>
+		<link href="/_app/immutable/assets/0.Cm4VwJkO.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/ModeToggle.BGcFn2YQ.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/SiteFooter.C2iJMiiC.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/4.DSSjYBJG.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[--><!--[0--><!--[--><!--[--><!--[-1--><!--[--><header class="header svelte-a8kxe2"><a href="/" class="wordmark svelte-10y6uor" aria-label="toolsite home"><svg viewBox="0 0 20 20" aria-hidden="true" class="svelte-10y6uor"><!----><rect x="2.75" y="2.75" width="14.5" height="14.5" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4"/><rect x="6.5" y="6.5" width="7" height="7" rx="2" fill="var(--accent)"/><!----></svg> <span>toolsite</span></a><!----> <nav aria-label="Site" class="svelte-a8kxe2"><!--[--><a href="/docs" class="svelte-a8kxe2">Docs</a><a href="/changelog" class="extra svelte-a8kxe2" aria-current="page">Changelog</a><!--]--> <a href="https://github.com/rynf1t/toolsite" class="gh svelte-a8kxe2">GitHub</a> <button type="button" class="trigger edge svelte-hsr9lg" aria-label="Search" aria-keyshortcuts="Meta+K"><svg viewBox="0 0 16 16" aria-hidden="true" class="svelte-hsr9lg"><circle cx="7" cy="7" r="4.75" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="m10.5 10.5 3.25 3.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg> <span class="svelte-hsr9lg">Search</span> <kbd class="svelte-hsr9lg">⌘K</kbd></button><!----> <button type="button" class="mode svelte-pkhzb5" aria-label="Switch to dark mode"><svg viewBox="0 0 16 16" aria-hidden="true" class="svelte-pkhzb5"><!--[-1--><path d="M13.5 9.6A5.75 5.75 0 0 1 6.4 2.5a5.75 5.75 0 1 0 7.1 7.1Z"></path><!--]--></svg></button><!----></nav></header><!----> <main class="svelte-c3nf25"><h1 class="svelte-c3nf25">Changelog</h1> <ol class="entries svelte-c3nf25"><!--[--><li><p class="date svelte-c3nf25"><time>10 NOV 2026</time></p> <h2 class="svelte-c3nf25"><a href="/changelog/2026-11-10-first-release" class="svelte-c3nf25">Changelog, a light and dark switch, custom heroes and template updates</a></h2> <!--[0--><p class="version svelte-c3nf25">0.2.0</p><!--]-->  <div class="lead svelte-c3nf25"><!----><p class="lead">Sites can now keep release notes, readers can pick light or dark, a site can bring its own hero demo, and existing sites can pull in template improvements.</p><!----></div> <a class="more svelte-c3nf25" href="/changelog/2026-11-10-first-release">Read the full post</a></li><li><p class="date svelte-c3nf25"><time>10 NOV 2026</time></p> <h2 class="svelte-c3nf25"><a href="/changelog/2026-11-10-faster-pages" class="svelte-c3nf25">Faster pages, smoother moves, and taking a site down</a></h2> <!--[0--><p class="version svelte-c3nf25">0.3.0</p><!--]-->  <div class="lead svelte-c3nf25"><!----><p class="lead">Pages load and move faster, and a site can now be taken down with one command.</p><!----></div> <a class="more svelte-c3nf25" href="/changelog/2026-11-10-faster-pages">Read the full post</a></li><!--]--></ol></main> <footer class="footer svelte-4jwo3w"><a href="/docs" class="svelte-4jwo3w">Docs</a> <!--[--><!--]--> <!--[0--><a href="/changelog" class="svelte-4jwo3w">Changelog</a><!--]--> <span class="rule svelte-4jwo3w" aria-hidden="true"></span> <a href="/llms.txt" data-sveltekit-reload="" class="svelte-4jwo3w">llms.txt</a> <a href="https://github.com/rynf1t/toolsite" class="svelte-4jwo3w">GitHub</a> <!--[0--><a href="https://itsryan.me" class="svelte-4jwo3w">by Ryan</a><!--]--></footer><!----><!--]--><!--]--><!--]--><!----> <dialog class="search svelte-1002zyw" aria-label="Search the docs"><div class="bar svelte-1002zyw"><svg viewBox="0 0 16 16" aria-hidden="true" class="glass svelte-1002zyw"><circle cx="7" cy="7" r="4.75" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="m10.5 10.5 3.25 3.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg> <input value="" type="text" placeholder="Search the docs" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results" aria-autocomplete="list" class="svelte-1002zyw"/> <button type="button" class="esc svelte-1002zyw" aria-label="Close search">esc</button></div> <div id="search-results" class="results svelte-1002zyw" role="listbox" aria-label="Results"><!--[-1--><!--]--> <!--[--><!--]--></div></dialog><!----><!--]--><!--]--><!--]--><!----> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_eq0c7w = {
+						base: "",
+						version: "1794282508869"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					import("/_app/immutable/entry/start.BiGYRAOe.js").then(async (kit) => {
+						kit.init(__sveltekit_eq0c7w);
+						const app = await import("/_app/immutable/entry/app.5v3Uvrsw.js");
+						kit.start(app, element, {
+							node_ids: [0, 4],
+							data: [null,{type:"data",data:{entries:[{path:"/changelog/2026-11-10-first-release",title:"Changelog, a light and dark switch, custom heroes and template updates",version:"0.2.0",date:"10 NOV 2026",lead:"\u003Cp class=\"lead\">Sites can now keep release notes, readers can pick light or dark, a site can bring its own hero demo, and existing sites can pull in template improvements.\u003C/p>"},{path:"/changelog/2026-11-10-faster-pages",title:"Faster pages, smoother moves, and taking a site down",version:"0.3.0",date:"10 NOV 2026",lead:"\u003Cp class=\"lead\">Pages load and move faster, and a site can now be taken down with one command.\u003C/p>"}]},uses:{}}],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+export{a as load_css,i as start}from"./irT2goNU.js";

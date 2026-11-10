@@ -1,0 +1,33 @@
+# toolsite
+
+> A landing page and docs site for a tool, made from one config file and a folder of Markdown.
+
+Every page is Markdown at the same URL with `.md` added. The full set is in /llms-full.txt and a JSON index is at /search.json.
+
+- [toolsite](https://toolsite.itsryan.me/index.md): what it is and how to install it
+- [Source](https://github.com/rynf1t/toolsite)
+
+## Start
+
+- [Installation](https://toolsite.itsryan.me/docs/installation.md): What you need, and how to make a site for a tool.
+- [Quick start](https://toolsite.itsryan.me/docs/quick-start.md): From an empty site to a published one.
+
+## Guide
+
+- [Configuration](https://toolsite.itsryan.me/docs/configuration.md): Every field in site.config.ts.
+- [Writing docs](https://toolsite.itsryan.me/docs/writing-docs.md): File names, front matter and the conventions every page follows.
+- [Changelog](https://toolsite.itsryan.me/docs/changelog.md): Dated release notes, one Markdown file each.
+- [Custom hero and styles](https://toolsite.itsryan.me/docs/custom-code.md): A live demo on the landing page, and site-specific CSS.
+- [Deploying](https://toolsite.itsryan.me/docs/deploying.md): Publishing to GitHub Pages, and using your own domain.
+- [Updating a site](https://toolsite.itsryan.me/docs/updating.md): Pulling template improvements into an existing site.
+
+## Reference
+
+- [Agents](https://toolsite.itsryan.me/docs/agents.md): How a coding agent builds a site, and how agents read one.
+- [Limits](https://toolsite.itsryan.me/docs/limits.md): What toolsite doesn't do, and how to work around it.
+
+## Changelog
+
+- [All entries](https://toolsite.itsryan.me/changelog.md): newest first
+- [Changelog, a light and dark switch, custom heroes and template updates](https://toolsite.itsryan.me/changelog/2026-11-10-first-release.md): 2026-11-10
+- [Faster pages, smoother moves, and taking a site down](https://toolsite.itsryan.me/changelog/2026-11-10-faster-pages.md): 2026-11-10
