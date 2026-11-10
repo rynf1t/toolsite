@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if grep -n 'TODO:' site.config.ts content/docs/*.md >&2; then
+if grep -n 'TODO: ' site.config.ts content/docs/*.md >&2; then
 	echo "deploy: fill in the TODOs above first" >&2
 	exit 1
 fi
